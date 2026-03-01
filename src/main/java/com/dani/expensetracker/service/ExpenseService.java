@@ -31,4 +31,14 @@ public class ExpenseService {
     public void deleteExpense(Long id) {
         expenseRepository.deleteById(id);
     }
+
+    public Optional<Expense> updateExpense(Long id, Expense updatedExpense) {
+        return expenseRepository.findById(id).map(existing -> {
+            existing.setDescription(updatedExpense.getDescription());
+            existing.setAmount(updatedExpense.getAmount());
+            existing.setCategory(updatedExpense.getCategory());
+            existing.setDate(updatedExpense.getDate());
+            return existing;
+        });
+    }
 }
