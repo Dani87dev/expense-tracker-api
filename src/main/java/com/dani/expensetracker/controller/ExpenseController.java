@@ -31,8 +31,9 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public Expense createExpense(@RequestBody Expense expense) {
-        return expenseService.createExpense(expense);
+    public ResponseEntity<Expense> createExpense(@RequestBody Expense expense) {
+        Expense created = expenseService.createExpense(expense);
+        return ResponseEntity.status(201).body(created);
     }
 
     @DeleteMapping("/{id}")
