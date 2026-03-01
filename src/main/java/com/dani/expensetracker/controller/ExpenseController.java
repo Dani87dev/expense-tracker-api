@@ -3,6 +3,7 @@ package com.dani.expensetracker.controller;
 import com.dani.expensetracker.model.Expense;
 import com.dani.expensetracker.service.ExpenseService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +24,10 @@ public class ExpenseController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Expense> getExpenseById(@PathVariable Long id) {
-        return expenseService.getExpenseById(id);
+    public ResponseEntity<Expense> getExpenseById(@PathVariable Long id) {
+        return expenseService.getExpenseById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
